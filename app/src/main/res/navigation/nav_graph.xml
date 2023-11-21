@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.stresscoping.FirstFragment"
+        android:name="com.example.stresscoping.StressCopingFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_stress_coping">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
