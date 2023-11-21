@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/StressCopingFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/StressCopingFragment"
         android:name="com.example.stresscoping.StressCopingFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/stress_coping_fragment_label"
         tools:layout="@layout/fragment_stress_coping">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/StressCopingListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/StressCopingListFragment"
         android:name="com.example.stresscoping.StressCopingListFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/stress_coping_list_fragment_label"
         tools:layout="@layout/fragment_stress_coping_list">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/StressCopingFragment" />
     </fragment>
 </navigation>
