@@ -7,12 +7,6 @@
     android:orientation="vertical"
     tools:context=".StressCopingListFragment">
 
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_stress_coping_list"
         android:layout_width="match_parent"
