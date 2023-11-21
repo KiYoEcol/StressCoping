@@ -18,13 +18,15 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val copings = arrayOf("サウナ", "甘い物を食べる", "寝る", "散歩", "読書")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        binding.buttonStressCoping.setOnClickListener { clickButtonStressCoping() }
         return binding.root
 
     }
@@ -40,5 +42,9 @@ class FirstFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun clickButtonStressCoping() {
+        binding.textviewStressCoping.text = copings.random()
     }
 }
