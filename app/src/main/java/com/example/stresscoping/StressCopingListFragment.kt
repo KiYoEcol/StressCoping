@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
 
 /**
@@ -18,6 +20,13 @@ class StressCopingListFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val stressCopingModels: List<StressCopingModel> = listOf(
+        StressCopingModel("サウナ"),
+        StressCopingModel("甘い物を食べる"),
+        StressCopingModel("寝る"),
+        StressCopingModel("散歩"),
+        StressCopingModel("読書")
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +44,16 @@ class StressCopingListFragment : Fragment() {
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
+        binding.recyclerviewStressCopingList.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            itemAnimator = DefaultItemAnimator()
+            adapter = StressCopingListViewAdapter(stressCopingModels, null)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.recyclerviewStressCopingList.adapter = null
         _binding = null
     }
 }
