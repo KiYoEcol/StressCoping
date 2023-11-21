@@ -18,7 +18,6 @@ class StressCopingFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private val copings = arrayOf("サウナ", "甘い物を食べる", "寝る", "散歩", "読書")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +44,7 @@ class StressCopingFragment : Fragment() {
     }
 
     private fun clickButtonStressCoping() {
-        binding.textviewStressCoping.text = copings.random()
+        binding.textviewStressCoping.text =
+            (activity as MainActivity).stressCopingModels.random().stressCoping
     }
 }

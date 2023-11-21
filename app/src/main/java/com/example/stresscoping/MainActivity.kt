@@ -15,6 +15,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    val stressCopingModels: List<StressCopingModel> = listOf(
+        StressCopingModel("サウナ"),
+        StressCopingModel("甘い物を食べる"),
+        StressCopingModel("寝る"),
+        StressCopingModel("散歩"),
+        StressCopingModel("読書"),
+        StressCopingModel("風呂")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
