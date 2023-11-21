@@ -1,10 +1,13 @@
 package com.example.stresscoping
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
@@ -26,6 +29,24 @@ class StressCopingListFragment : Fragment() {
     ): View {
 
         _binding = FragmentStressCopingListBinding.inflate(inflater, container, false)
+        binding.fabAddStressCoping.setOnClickListener {
+            val context: Context = context ?: return@setOnClickListener
+            val editText = AppCompatEditText(context)
+            AlertDialog.Builder(context)
+                .setTitle("追加")
+                .setMessage("ストレスコーピングを入力してください。")
+                .setView(editText)
+                .setPositiveButton("OK") { dialog, _ ->
+                    // OKボタンを押したときの処理
+                    dialog.dismiss()
+                }
+                .setNegativeButton("キャンセル") { dialog, _ ->
+                    // キャンセルボタンを押したときの処理
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
         return binding.root
 
     }
