@@ -38,6 +38,14 @@ class StressCopingListFragment : Fragment() {
                 .setView(editText)
                 .setPositiveButton("OK") { dialog, _ ->
                     // OKボタンを押したときの処理
+                    val stressCopingModel = StressCopingModel(editText.text.toString())
+                    (activity as? MainActivity)?.apply {
+                        stressCopingModels.add(stressCopingModel)
+                        binding.recyclerviewStressCopingList.adapter?.notifyItemInserted(
+                            stressCopingModels.size
+                        )
+                    }
+
                     dialog.dismiss()
                 }
                 .setNegativeButton("キャンセル") { dialog, _ ->

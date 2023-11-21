@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    val stressCopingModels: List<StressCopingModel> = listOf(
+    val stressCopingModels: ArrayList<StressCopingModel> = arrayListOf(
         StressCopingModel("サウナ"),
         StressCopingModel("甘い物を食べる"),
         StressCopingModel("寝る"),
