@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
@@ -16,15 +17,9 @@ import com.example.stresscoping.databinding.FragmentStressCopingListBinding
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class StressCopingListFragment : Fragment() {
-    private val stressCopingModels: ArrayList<StressCopingModel> = arrayListOf(
-        StressCopingModel("サウナ"),
-        StressCopingModel("甘い物を食べる"),
-        StressCopingModel("寝る"),
-        StressCopingModel("散歩"),
-        StressCopingModel("読書"),
-        StressCopingModel("風呂")
-    )
+    private val viewModel: StressCopingListViewModel by viewModels()
     private lateinit var binding: FragmentStressCopingListBinding
+    private lateinit var stressCopingListViewAdapter: StressCopingListViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +37,7 @@ class StressCopingListFragment : Fragment() {
                 .setPositiveButton("OK") { dialog, _ ->
                     // OKボタンを押したときの処理
                     val stressCopingModel = StressCopingModel(editText.text.toString())
-                    (activity as? MainActivity)?.apply {
-                        stressCopingModels.add(stressCopingModel)
-                        binding.recyclerviewStressCopingList.adapter?.notifyItemInserted(
-                            stressCopingModels.size
-                        )
-                    }
+                    viewModel.addStressCoping(stressCopingModel)
 
                     dialog.dismiss()
                 }
@@ -58,21 +48,23 @@ class StressCopingListFragment : Fragment() {
                 .create()
                 .show()
         }
+
+        stressCopingListViewAdapter = StressCopingListViewAdapter(viewLifecycleOwner, viewModel)
+        binding.recyclerviewStressCopingList.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            itemAnimator = DefaultItemAnimator()
+            adapter = stressCopingListViewAdapter
+        }
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerviewStressCopingList.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            itemAnimator = DefaultItemAnimator()
-            adapter = StressCopingListViewAdapter(stressCopingModels, null)
+        viewModel.run {
+            stressCopings.observe(viewLifecycleOwner) {
+                stressCopingListViewAdapter.submitList(it)
+            }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.recyclerviewStressCopingList.adapter = null
     }
 }
