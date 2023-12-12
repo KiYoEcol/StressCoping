@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.stresscoping.databinding.FragmentStressCopingBinding
 
@@ -13,19 +14,17 @@ import com.example.stresscoping.databinding.FragmentStressCopingBinding
  */
 class StressCopingFragment : Fragment() {
 
-    private var _binding: FragmentStressCopingBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentStressCopingBinding
+    private val viewModel: StressCopingViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = FragmentStressCopingBinding.inflate(inflater, container, false)
-        binding.buttonStressCoping.setOnClickListener { clickButtonStressCoping() }
+        binding = FragmentStressCopingBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
 
     }
@@ -33,18 +32,7 @@ class StressCopingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun clickButtonStressCoping() {
-        binding.textviewStressCoping.text =
-            (activity as MainActivity).stressCopingModels.random().stressCoping
+        binding.buttonStressCoping.setOnClickListener { viewModel.clickChoose() }
+        binding.buttonFirst.setOnClickListener { findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment) }
     }
 }

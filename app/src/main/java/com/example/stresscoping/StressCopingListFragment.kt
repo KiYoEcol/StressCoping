@@ -16,19 +16,22 @@ import com.example.stresscoping.databinding.FragmentStressCopingListBinding
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class StressCopingListFragment : Fragment() {
-
-    private var _binding: FragmentStressCopingListBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val stressCopingModels: ArrayList<StressCopingModel> = arrayListOf(
+        StressCopingModel("サウナ"),
+        StressCopingModel("甘い物を食べる"),
+        StressCopingModel("寝る"),
+        StressCopingModel("散歩"),
+        StressCopingModel("読書"),
+        StressCopingModel("風呂")
+    )
+    private lateinit var binding: FragmentStressCopingListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentStressCopingListBinding.inflate(inflater, container, false)
+        binding = FragmentStressCopingListBinding.inflate(inflater, container, false)
         binding.fabAddStressCoping.setOnClickListener {
             val context: Context = context ?: return@setOnClickListener
             val editText = AppCompatEditText(context)
@@ -65,13 +68,12 @@ class StressCopingListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
             adapter =
-                StressCopingListViewAdapter((activity as MainActivity).stressCopingModels, null)
+                StressCopingListViewAdapter(stressCopingModels, null)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding.recyclerviewStressCopingList.adapter = null
-        _binding = null
     }
 }
