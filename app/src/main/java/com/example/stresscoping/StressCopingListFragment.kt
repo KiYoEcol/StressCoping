@@ -67,8 +67,7 @@ class StressCopingListFragment : Fragment() {
         binding.recyclerviewStressCopingList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             itemAnimator = DefaultItemAnimator()
-            adapter =
-                StressCopingListViewAdapter(stressCopingModels, null)
+            adapter = StressCopingListViewAdapter(stressCopingModels, null)
         }
     }
 
