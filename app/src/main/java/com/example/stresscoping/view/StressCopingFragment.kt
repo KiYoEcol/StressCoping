@@ -1,4 +1,4 @@
-package com.example.stresscoping
+package com.example.stresscoping.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.stresscoping.R
+import com.example.stresscoping.StressCopingViewModel
 import com.example.stresscoping.databinding.FragmentStressCopingBinding
 
 /**

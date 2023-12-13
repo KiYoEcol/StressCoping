@@ -4,7 +4,7 @@
     <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".StressCopingListFragment">
+        tools:context=".view.StressCopingListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_stress_coping_list"

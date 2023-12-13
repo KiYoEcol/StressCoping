@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/StressCopingFragment"
-        android:name="com.example.stresscoping.StressCopingFragment"
+        android:name="com.example.stresscoping.view.StressCopingFragment"
         android:label="@string/stress_coping_fragment_label"
         tools:layout="@layout/fragment_stress_coping">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/StressCopingListFragment"
-        android:name="com.example.stresscoping.StressCopingListFragment"
+        android:name="com.example.stresscoping.view.StressCopingListFragment"
         android:label="@string/stress_coping_list_fragment_label"
         tools:layout="@layout/fragment_stress_coping_list">
 

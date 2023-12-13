@@ -1,4 +1,4 @@
-package com.example.stresscoping
+package com.example.stresscoping.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import com.example.stresscoping.R
 import com.example.stresscoping.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
