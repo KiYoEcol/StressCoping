@@ -2,7 +2,7 @@ package com.example.stresscoping.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.stresscoping.StressCopingModel
+import com.example.stresscoping.model.StressCopingModel
 
 class StressCopingViewModel : ViewModel() {
     private val stressCopingModels: ArrayList<StressCopingModel> = arrayListOf(

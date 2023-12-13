@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stresscoping.StressCopingListViewAdapter
 import com.example.stresscoping.viewmodel.StressCopingListViewModel
-import com.example.stresscoping.StressCopingModel
+import com.example.stresscoping.model.StressCopingModel
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
 
 /**

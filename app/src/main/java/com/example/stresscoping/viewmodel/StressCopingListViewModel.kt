@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.distinctUntilChanged
-import com.example.stresscoping.StressCopingModel
+import com.example.stresscoping.model.StressCopingModel
 
 class StressCopingListViewModel : ViewModel() {
     private val stressCopingsRaw: MutableList<StressCopingModel> = mutableListOf(

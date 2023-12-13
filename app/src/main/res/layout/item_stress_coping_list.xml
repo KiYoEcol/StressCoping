@@ -5,7 +5,7 @@
 
         <variable
             name="stressCoping"
-            type="com.example.stresscoping.StressCopingModel" />
+            type="com.example.stresscoping.model.StressCopingModel" />
     </data>
 
     <LinearLayout
