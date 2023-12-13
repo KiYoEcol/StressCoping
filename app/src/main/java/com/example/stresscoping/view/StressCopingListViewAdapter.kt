@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stresscoping.databinding.ItemStressCopingListBinding
+import com.example.stresscoping.viewmodel.StressCopingListViewModel
 
 private object DiffCallback : DiffUtil.ItemCallback<StressCopingModel>() {
     override fun areItemsTheSame(oldItem: StressCopingModel, newItem: StressCopingModel): Boolean {

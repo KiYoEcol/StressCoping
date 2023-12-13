@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.stresscoping.R
-import com.example.stresscoping.StressCopingViewModel
+import com.example.stresscoping.viewmodel.StressCopingViewModel
 import com.example.stresscoping.databinding.FragmentStressCopingBinding
 
 /**
