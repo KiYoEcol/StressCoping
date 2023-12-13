@@ -8,14 +8,15 @@ import com.example.stresscoping.model.StressCopingModel
 
 class StressCopingListViewModel : ViewModel() {
     private val stressCopingsRaw: MutableList<StressCopingModel> = mutableListOf(
-        StressCopingModel("サウナ"),
-        StressCopingModel("甘い物を食べる"),
-        StressCopingModel("寝る"),
-        StressCopingModel("散歩"),
-        StressCopingModel("読書"),
-        StressCopingModel("風呂")
+        StressCopingModel(0, "サウナ"),
+        StressCopingModel(1, "甘い物を食べる"),
+        StressCopingModel(2, "寝る"),
+        StressCopingModel(3, "散歩"),
+        StressCopingModel(4, "読書"),
+        StressCopingModel(5, "風呂")
     )
-    private val _stressCopings = MutableLiveData<List<StressCopingModel>>(ArrayList(stressCopingsRaw))
+    private val _stressCopings =
+        MutableLiveData<List<StressCopingModel>>(ArrayList(stressCopingsRaw))
     val stressCopings: LiveData<List<StressCopingModel>> = _stressCopings.distinctUntilChanged()
 
     fun addStressCoping(stressCoping: StressCopingModel) {

@@ -12,7 +12,7 @@ import com.example.stresscoping.viewmodel.StressCopingListViewModel
 
 private object DiffCallback : DiffUtil.ItemCallback<StressCopingModel>() {
     override fun areItemsTheSame(oldItem: StressCopingModel, newItem: StressCopingModel): Boolean {
-        return oldItem.stressCoping == newItem.stressCoping
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(

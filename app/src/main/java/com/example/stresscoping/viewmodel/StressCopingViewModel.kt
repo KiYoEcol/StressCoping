@@ -6,12 +6,12 @@ import com.example.stresscoping.model.StressCopingModel
 
 class StressCopingViewModel : ViewModel() {
     private val stressCopingModels: ArrayList<StressCopingModel> = arrayListOf(
-        StressCopingModel("サウナ"),
-        StressCopingModel("甘い物を食べる"),
-        StressCopingModel("寝る"),
-        StressCopingModel("散歩"),
-        StressCopingModel("読書"),
-        StressCopingModel("風呂")
+        StressCopingModel(0, "サウナ"),
+        StressCopingModel(1, "甘い物を食べる"),
+        StressCopingModel(2, "寝る"),
+        StressCopingModel(3, "散歩"),
+        StressCopingModel(4, "読書"),
+        StressCopingModel(5, "風呂")
     )
     val textStressCoping: MutableLiveData<String> = MutableLiveData()
 
@@ -22,6 +22,6 @@ class StressCopingViewModel : ViewModel() {
     fun clickChoose() {
         stressCopingModels.shuffle()
         val model = stressCopingModels.first()
-        textStressCoping.postValue(model.stressCoping)
+        textStressCoping.postValue(model.title)
     }
 }
