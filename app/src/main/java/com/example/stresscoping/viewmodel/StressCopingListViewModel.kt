@@ -1,27 +1,23 @@
 package com.example.stresscoping.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.viewModelScope
+import com.example.stresscoping.database.getStressCopingDatabase
 import com.example.stresscoping.model.StressCopingModel
+import com.example.stresscoping.repository.StressCopingRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class StressCopingListViewModel : ViewModel() {
-    private val stressCopingsRaw: MutableList<StressCopingModel> = mutableListOf(
-        StressCopingModel(0, "サウナ"),
-        StressCopingModel(1, "甘い物を食べる"),
-        StressCopingModel(2, "寝る"),
-        StressCopingModel(3, "散歩"),
-        StressCopingModel(4, "読書"),
-        StressCopingModel(5, "風呂")
-    )
-    private val _stressCopings =
-        MutableLiveData<List<StressCopingModel>>(ArrayList(stressCopingsRaw))
-    val stressCopings: LiveData<List<StressCopingModel>> = _stressCopings.distinctUntilChanged()
+class StressCopingListViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository = StressCopingRepository(getStressCopingDatabase(application))
+    val stressCopings: LiveData<List<StressCopingModel>> = repository.getAllLiveData
 
     fun addStressCoping(stressCoping: StressCopingModel) {
-        stressCopingsRaw.add(stressCoping)
-        _stressCopings.postValue(ArrayList(stressCopingsRaw))
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insert(stressCoping)
+        }
     }
 
     fun onClickItem(stressCoping: StressCopingModel) {}

@@ -36,5 +36,8 @@ class StressCopingFragment : Fragment() {
 
         binding.buttonStressCoping.setOnClickListener { viewModel.clickChoose() }
         binding.buttonFirst.setOnClickListener { findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment) }
+        viewModel.run {
+            stressCopings.observe(viewLifecycleOwner){}
+        }
     }
 }
