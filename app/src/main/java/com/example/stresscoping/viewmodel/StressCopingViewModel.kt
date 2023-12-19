@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import com.example.stresscoping.R
 import com.example.stresscoping.database.getStressCopingDatabase
 import com.example.stresscoping.model.StressCopingModel
@@ -13,7 +14,7 @@ import com.example.stresscoping.repository.StressCopingRepository
 class StressCopingViewModel(application: Application) : AndroidViewModel(application) {
     private var repository: StressCopingRepository =
         StressCopingRepository(getStressCopingDatabase(application))
-    val stressCopings: LiveData<List<StressCopingModel>> = repository.getAllLiveData
+    val stressCopings: LiveData<List<StressCopingModel>> = repository.allFlow.asLiveData()
     val textStressCoping: MutableLiveData<String> = MutableLiveData()
 
     init {

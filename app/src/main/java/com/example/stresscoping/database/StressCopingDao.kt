@@ -1,12 +1,12 @@
 package com.example.stresscoping.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StressCopingDao {
@@ -14,7 +14,7 @@ interface StressCopingDao {
     fun insert(stressCoping: StressCopingEntity)
 
     @Query("SELECT * FROM stress_coping")
-    fun getAllLiveData(): LiveData<List<StressCopingEntity>>
+    fun getAllFlow(): Flow<List<StressCopingEntity>>
 
     @Update
     fun update(stressCoping: StressCopingEntity)

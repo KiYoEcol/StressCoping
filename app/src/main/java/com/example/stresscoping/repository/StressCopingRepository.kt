@@ -1,16 +1,16 @@
 package com.example.stresscoping.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.example.stresscoping.database.StressCopingDatabase
 import com.example.stresscoping.database.StressCopingEntity
 import com.example.stresscoping.model.StressCopingModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class StressCopingRepository(private val database: StressCopingDatabase) {
-    val getAllLiveData: LiveData<List<StressCopingModel>> =
-        database.stressCopingDao().getAllLiveData().map { list ->
+    val allFlow: Flow<List<StressCopingModel>> =
+        database.stressCopingDao().getAllFlow().map { list ->
             list.map { entity ->
                 StressCopingModel(entity.id, entity.title)
             }
