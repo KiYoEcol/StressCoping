@@ -10,4 +10,9 @@
     <string name="button_start">スタート</string>
     <string name="first_text_on_stress_coping">ボタンを押してください</string>
     <string name="empty_text_on_stress_coping">リストに追加してください</string>
+
+    <string name="title_stress_coping_add_dialog">追加</string>
+    <string name="msg_stress_coping_add_dialog">ストレスコーピングを入力してください。</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">キャンセル</string>
 </resources>
