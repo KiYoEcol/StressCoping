@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,15 +20,18 @@
         <TextView
             android:id="@+id/textview_stress_coping_item"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="@{stressCoping.title}"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="甘い物" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/button_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="end|center_vertical"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -38,7 +42,7 @@
                 android:layout_height="24dp"
                 android:contentDescription="@string/label_delete"
                 android:src="@drawable/baseline_delete_24"
-                app:tint="@android:color/holo_red_light" />
+                app:tint="@color/caution" />
 
             <TextView
                 android:layout_width="wrap_content"

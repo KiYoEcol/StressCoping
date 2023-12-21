@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stresscoping.StressCopingListViewAdapter
 import com.example.stresscoping.viewmodel.StressCopingListViewModel
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
+import com.example.stresscoping.model.StressCopingModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -47,6 +48,14 @@ class StressCopingListFragment : Fragment() {
         viewModel.run {
             stressCopings.observe(viewLifecycleOwner) {
                 stressCopingListViewAdapter.submitList(it)
+            }
+            showDeleteDialog.observe(viewLifecycleOwner) { stressCoping ->
+                val dialog = StressCopingDeleteDialogFragment()
+                dialog.listener = this
+                dialog.arguments = Bundle().apply {
+                    putString(StressCopingModel.KEY_STRESS_COPING_MODEL, stressCoping.toJson())
+                }
+                dialog.show(childFragmentManager, "stress_coping_delete_dialog")
             }
         }
     }

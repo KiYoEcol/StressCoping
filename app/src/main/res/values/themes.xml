@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.StressCoping" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.StressCoping" parent="Base.Theme.StressCoping" />
+
+    <!--component-->
+    <style name="TextButtonCaution" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/caution</item>
+    </style>
+    <!--dialog-->
+    <style name="StressCopingDeleteDialogFragment" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/TextButtonCaution</item>
+    </style>
 </resources>

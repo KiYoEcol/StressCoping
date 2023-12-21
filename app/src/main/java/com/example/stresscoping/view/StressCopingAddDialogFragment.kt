@@ -17,7 +17,6 @@ class StressCopingAddDialogFragment : DialogFragment() {
     var listener: Listener? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        //return super.onCreateDialog(savedInstanceState)
         return activity?.let {
             val editText = AppCompatEditText(it)
             val builder = AlertDialog.Builder(it)

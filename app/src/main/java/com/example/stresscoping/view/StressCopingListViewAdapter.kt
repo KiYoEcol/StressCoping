@@ -43,6 +43,9 @@ class StressCopingListViewAdapter(
                 this.root.setOnClickListener {
                     viewModel.onClickItem(model)
                 }
+                this.buttonDelete.setOnClickListener {
+                    viewModel.onClickDeleteButton(model)
+                }
 
                 executePendingBindings()
             }

@@ -20,14 +20,15 @@ class StressCopingDeleteDialogFragment : DialogFragment() {
                 ?: throw IllegalStateException("argument cannot be null")
             val model = StressCopingModel.fromJson(json)
 
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle(R.string.title_stress_coping_add_dialog)
+            val builder = AlertDialog.Builder(it, R.style.StressCopingDeleteDialogFragment)
+            builder.setTitle(R.string.title_stress_coping_delete_dialog)
                 .setMessage(model.title)
                 .setPositiveButton(R.string.btn_cancel) { _, _ -> }
                 .setNegativeButton(R.string.btn_delete) { dialog, _ ->
                     listener?.onClickDeleteOnDeleteDialog(model)
                     dialog.dismiss()
                 }
+
             // Create the AlertDialog object and return it
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

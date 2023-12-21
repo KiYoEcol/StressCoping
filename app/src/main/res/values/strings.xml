@@ -10,11 +10,14 @@
     <string name="button_start">スタート</string>
     <string name="first_text_on_stress_coping">ボタンを押してください</string>
     <string name="empty_text_on_stress_coping">リストに追加してください</string>
-
+    <!--StressCopingAddDialogFragment-->
     <string name="title_stress_coping_add_dialog">追加</string>
     <string name="msg_stress_coping_add_dialog">ストレスコーピングを入力してください。</string>
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">キャンセル</string>
+    <!--StressCopingDeleteDialogFragment-->
+    <string name="title_stress_coping_delete_dialog">本当に削除しますか？</string>
+    <string name="btn_delete">削除</string>
 
     <string name="label_delete">削除</string>
 </resources>
