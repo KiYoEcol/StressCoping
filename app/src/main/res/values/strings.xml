@@ -15,4 +15,6 @@
     <string name="msg_stress_coping_add_dialog">ストレスコーピングを入力してください。</string>
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">キャンセル</string>
+
+    <string name="label_delete">削除</string>
 </resources>
