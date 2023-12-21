@@ -49,6 +49,14 @@ class StressCopingListFragment : Fragment() {
             stressCopings.observe(viewLifecycleOwner) {
                 stressCopingListViewAdapter.submitList(it)
             }
+            showEditDialog.observe(viewLifecycleOwner) { stressCoping ->
+                val dialog = StressCopingEditDialogFragment()
+                dialog.listener = this
+                dialog.arguments = Bundle().apply {
+                    putString(StressCopingModel.KEY_STRESS_COPING_MODEL, stressCoping.toJson())
+                }
+                dialog.show(childFragmentManager, "stress_coping_edit_dialog")
+            }
             showDeleteDialog.observe(viewLifecycleOwner) { stressCoping ->
                 val dialog = StressCopingDeleteDialogFragment()
                 dialog.listener = this
@@ -57,6 +65,7 @@ class StressCopingListFragment : Fragment() {
                 }
                 dialog.show(childFragmentManager, "stress_coping_delete_dialog")
             }
+
         }
     }
 }

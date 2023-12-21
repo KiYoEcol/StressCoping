@@ -30,7 +30,7 @@ class StressCopingListViewAdapter(
 ) : ListAdapter<StressCopingModel, StressCopingListViewAdapter.StressCopingListViewHolder>(
     DiffCallback
 ) {
-    class StressCopingListViewHolder(val binding: ItemStressCopingListBinding) :
+    class StressCopingListViewHolder(private val binding: ItemStressCopingListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             model: StressCopingModel,
@@ -42,6 +42,9 @@ class StressCopingListViewAdapter(
                 this.stressCoping = model
                 this.root.setOnClickListener {
                     viewModel.onClickItem(model)
+                }
+                this.buttonEdit.setOnClickListener {
+                    viewModel.onClickEditButton(model)
                 }
                 this.buttonDelete.setOnClickListener {
                     viewModel.onClickDeleteButton(model)
