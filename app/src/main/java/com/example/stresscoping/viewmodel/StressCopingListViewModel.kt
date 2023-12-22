@@ -3,9 +3,9 @@ package com.example.stresscoping.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.stresscoping.SingleLiveData
 import com.example.stresscoping.database.getStressCopingDatabase
 import com.example.stresscoping.model.StressCopingModel
 import com.example.stresscoping.repository.StressCopingRepository
@@ -20,17 +20,17 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
     StressCopingEditDialogFragment.Listener {
     private val repository = StressCopingRepository(getStressCopingDatabase(application))
     val stressCopings: LiveData<List<StressCopingModel>> = repository.allFlow.asLiveData()
-    val showEditDialog: MutableLiveData<StressCopingModel> = MutableLiveData()
-    val showDeleteDialog: MutableLiveData<StressCopingModel> = MutableLiveData()
-
-    fun onClickItem(stressCoping: StressCopingModel) {}
+    private val _showEditDialog = SingleLiveData<StressCopingModel>()
+    val showEditDialog: LiveData<StressCopingModel> = _showEditDialog
+    private val _showDeleteDialog = SingleLiveData<StressCopingModel>()
+    val showDeleteDialog: LiveData<StressCopingModel> = _showDeleteDialog
 
     fun onClickEditButton(stressCoping: StressCopingModel) {
-        showEditDialog.postValue(stressCoping)
+        _showEditDialog.postValue(stressCoping)
     }
 
     fun onClickDeleteButton(stressCoping: StressCopingModel) {
-        showDeleteDialog.postValue(stressCoping)
+        _showDeleteDialog.postValue(stressCoping)
     }
 
     override fun onClickOkOnAddDialog(title: String) {

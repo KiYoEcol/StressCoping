@@ -40,9 +40,6 @@ class StressCopingListViewAdapter(
             binding.run {
                 this.lifecycleOwner = lifecycleOwner
                 this.stressCoping = model
-                this.root.setOnClickListener {
-                    viewModel.onClickItem(model)
-                }
                 this.buttonEdit.setOnClickListener {
                     viewModel.onClickEditButton(model)
                 }
