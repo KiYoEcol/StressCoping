@@ -15,6 +15,7 @@
     <string name="msg_stress_coping_add_dialog">ストレスコーピングを入力してください。</string>
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">キャンセル</string>
+    <string name="hint_add_dialog">入力</string>
     <!--StressCopingDeleteDialogFragment-->
     <string name="label_delete">削除</string>
     <string name="title_stress_coping_delete_dialog">本当に削除しますか？</string>
@@ -23,4 +24,5 @@
     <string name="label_edit">編集</string>
     <string name="title_stress_coping_edit_dialog">編集</string>
     <string name="btn_update">更新</string>
+    <string name="hint_edit_dialog">ストレスコーピングを入力してください。</string>
 </resources>

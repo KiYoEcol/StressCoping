@@ -24,6 +24,7 @@ class StressCopingEditDialogFragment : DialogFragment() {
 
             val editText = AppCompatEditText(it).apply {
                 setText(stressCoping.title)
+                setHint(R.string.hint_edit_dialog)
             }
             val builder = AlertDialog.Builder(it)
             builder.setTitle(R.string.title_stress_coping_edit_dialog)

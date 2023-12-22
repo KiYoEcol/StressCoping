@@ -2,7 +2,6 @@ package com.example.stresscoping.view
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.DialogFragment
@@ -18,7 +17,9 @@ class StressCopingAddDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            val editText = AppCompatEditText(it)
+            val editText = AppCompatEditText(it).apply {
+                setHint(R.string.hint_add_dialog)
+            }
             val builder = AlertDialog.Builder(it)
             builder.setTitle(R.string.title_stress_coping_add_dialog)
                 .setMessage(R.string.msg_stress_coping_add_dialog)
@@ -26,7 +27,6 @@ class StressCopingAddDialogFragment : DialogFragment() {
                 .setPositiveButton(R.string.btn_ok) { dialog, _ ->
                     // OKボタンを押したときの処理
                     val title = editText.text.toString()
-                    Log.d("TEST","テスト parentFragment is Listener? ${parentFragment is Listener}")
                     listener?.onClickOkOnAddDialog(title)
 
                     dialog.dismiss()
