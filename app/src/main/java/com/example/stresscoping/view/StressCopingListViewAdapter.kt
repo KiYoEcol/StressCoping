@@ -1,7 +1,9 @@
 package com.example.stresscoping
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -27,7 +29,7 @@ private object DiffCallback : DiffUtil.ItemCallback<StressCopingModel>() {
 class StressCopingListViewAdapter(
     private val lifecycleOwner: LifecycleOwner,
     private val viewModel: StressCopingListViewModel,
-) : ListAdapter<StressCopingModel, StressCopingListViewAdapter.StressCopingListViewHolder>(
+) : ListAdapter<StressCopingModel, RecyclerView.ViewHolder>(
     DiffCallback
 ) {
     class StressCopingListViewHolder(private val binding: ItemStressCopingListBinding) :
@@ -52,13 +54,57 @@ class StressCopingListViewAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StressCopingListViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemStressCopingListBinding.inflate(inflater, parent, false)
-        return StressCopingListViewHolder(binding)
+    class FooterListViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
+
+    private val ITEM_VIEW_TYPE = 1
+    private val FOOTER_VIEW_TYPE = 2
+
+    override fun getItemCount(): Int {
+        return if (super.getItemCount() == 0) {
+            0
+        } else {
+            super.getItemCount() + 1
+        }
     }
 
-    override fun onBindViewHolder(holder: StressCopingListViewHolder, position: Int) {
-        holder.bind(getItem(position), lifecycleOwner, viewModel)
+    override fun getItem(position: Int): StressCopingModel? {
+        return if (position < itemCount - 1) {
+            super.getItem(position)
+        } else {
+            null
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position < itemCount - 1) {
+            ITEM_VIEW_TYPE
+        } else {
+            FOOTER_VIEW_TYPE
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == ITEM_VIEW_TYPE) {
+            val inflater = LayoutInflater.from(parent.context)
+            val binding = ItemStressCopingListBinding.inflate(inflater, parent, false)
+            StressCopingListViewHolder(binding)
+        } else {
+            val view = FrameLayout(parent.context).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    80.dpToPx(parent.context),
+                    80.dpToPx(parent.context)
+                )
+            }
+            FooterListViewHolder(view)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is StressCopingListViewHolder) {
+            val stressCoping: StressCopingModel =
+                getItem(position)
+                    ?: throw IllegalStateException("getItem cannot be null when ViewHolder is StressCopingListViewHolder")
+            holder.bind(stressCoping, lifecycleOwner, viewModel)
+        }
     }
 }
