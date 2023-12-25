@@ -7,10 +7,12 @@ private lateinit var STRESS_COPING_DATABASE_INSTANCE: StressCopingDatabase
 fun getStressCopingDatabase(context: Context): StressCopingDatabase{
     synchronized(StressCopingDatabase::class.java){
         if (!::STRESS_COPING_DATABASE_INSTANCE.isInitialized){
-            STRESS_COPING_DATABASE_INSTANCE = Room.databaseBuilder(context.applicationContext,
+            STRESS_COPING_DATABASE_INSTANCE = Room.databaseBuilder(
+                context.applicationContext,
                 StressCopingDatabase::class.java,
                 "stress_coping"
-            ).build()
+            ).createFromAsset("predatabase_stress_coping.db")
+                .build()
         }
     }
     return STRESS_COPING_DATABASE_INSTANCE
