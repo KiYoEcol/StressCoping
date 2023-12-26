@@ -42,11 +42,15 @@ class StressCopingFragment : Fragment() {
             }
         }
         binding.buttonFirst.setOnClickListener {
-            viewModel.stopStressCopingIfChangingText()
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
         viewModel.run {
             stressCopings.observe(viewLifecycleOwner) {}
         }
+    }
+
+    override fun onPause() {
+        viewModel.stopStressCopingIfChangingText()
+        super.onPause()
     }
 }
