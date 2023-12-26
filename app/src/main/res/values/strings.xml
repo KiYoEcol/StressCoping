@@ -7,7 +7,8 @@
     <string name="go_to_list">リスト表示</string>
     <string name="previous">戻る</string>
 
-    <string name="button_start">スタート</string>
+    <string name="btn_start">スタート</string>
+    <string name="btn_stop">ストップ</string>
     <string name="first_text_on_stress_coping">ボタンを押してください</string>
     <string name="empty_text_on_stress_coping">リストに追加してください</string>
     <!--StressCopingAddDialogFragment-->
