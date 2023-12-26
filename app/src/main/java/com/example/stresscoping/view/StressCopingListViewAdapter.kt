@@ -9,17 +9,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stresscoping.databinding.ItemStressCopingListBinding
+import com.example.stresscoping.model.StressCopingListItemModel
 import com.example.stresscoping.model.StressCopingModel
 import com.example.stresscoping.viewmodel.StressCopingListViewModel
 
-private object DiffCallback : DiffUtil.ItemCallback<StressCopingModel>() {
-    override fun areItemsTheSame(oldItem: StressCopingModel, newItem: StressCopingModel): Boolean {
-        return oldItem.id == newItem.id
+private object DiffCallback : DiffUtil.ItemCallback<StressCopingListItemModel>() {
+    override fun areItemsTheSame(
+        oldItem: StressCopingListItemModel,
+        newItem: StressCopingListItemModel
+    ): Boolean {
+        return if (oldItem.type == StressCopingListItemModel.Type.Body && newItem.type == StressCopingListItemModel.Type.Body) {
+            oldItem.stressCoping?.id == newItem.stressCoping?.id
+        } else oldItem.type == StressCopingListItemModel.Type.Footer && newItem.type == StressCopingListItemModel.Type.Footer
     }
 
     override fun areContentsTheSame(
-        oldItem: StressCopingModel,
-        newItem: StressCopingModel
+        oldItem: StressCopingListItemModel,
+        newItem: StressCopingListItemModel
     ): Boolean {
         return oldItem == newItem
     }
@@ -29,7 +35,7 @@ private object DiffCallback : DiffUtil.ItemCallback<StressCopingModel>() {
 class StressCopingListViewAdapter(
     private val lifecycleOwner: LifecycleOwner,
     private val viewModel: StressCopingListViewModel,
-) : ListAdapter<StressCopingModel, RecyclerView.ViewHolder>(
+) : ListAdapter<StressCopingListItemModel, RecyclerView.ViewHolder>(
     DiffCallback
 ) {
     class StressCopingListViewHolder(private val binding: ItemStressCopingListBinding) :
@@ -59,27 +65,11 @@ class StressCopingListViewAdapter(
     private val ITEM_VIEW_TYPE = 1
     private val FOOTER_VIEW_TYPE = 2
 
-    override fun getItemCount(): Int {
-        return if (super.getItemCount() == 0) {
-            0
-        } else {
-            super.getItemCount() + 1
-        }
-    }
-
-    override fun getItem(position: Int): StressCopingModel? {
-        return if (position < itemCount - 1) {
-            super.getItem(position)
-        } else {
-            null
-        }
-    }
-
     override fun getItemViewType(position: Int): Int {
-        return if (position < itemCount - 1) {
-            ITEM_VIEW_TYPE
-        } else {
-            FOOTER_VIEW_TYPE
+        val stressCopingListItem = getItem(position)
+        return when (stressCopingListItem.type) {
+            StressCopingListItemModel.Type.Body -> ITEM_VIEW_TYPE
+            StressCopingListItemModel.Type.Footer -> FOOTER_VIEW_TYPE
         }
     }
 
@@ -101,9 +91,9 @@ class StressCopingListViewAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is StressCopingListViewHolder) {
-            val stressCoping: StressCopingModel =
-                getItem(position)
-                    ?: throw IllegalStateException("getItem cannot be null when ViewHolder is StressCopingListViewHolder")
+            val stressCopingListItemModel = getItem(position)
+            val stressCoping = stressCopingListItemModel.stressCoping
+                ?: throw IllegalStateException("StressCopingModel cannot be null when holder is StressCopingListViewHolder")
             holder.bind(stressCoping, lifecycleOwner, viewModel)
         }
     }

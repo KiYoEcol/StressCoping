@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stresscoping.StressCopingListViewAdapter
 import com.example.stresscoping.viewmodel.StressCopingListViewModel
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
+import com.example.stresscoping.model.StressCopingListItemModel
 import com.example.stresscoping.model.StressCopingModel
 
 /**
@@ -46,8 +47,17 @@ class StressCopingListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.run {
-            stressCopings.observe(viewLifecycleOwner) {
-                stressCopingListViewAdapter.submitList(it)
+            stressCopings.observe(viewLifecycleOwner) { stressCopings ->
+                val stressCopingListItems = stressCopings.map {
+                    StressCopingListItemModel(it, StressCopingListItemModel.Type.Body)
+                }.toMutableList()
+                stressCopingListItems.add(
+                    StressCopingListItemModel(
+                        null,
+                        StressCopingListItemModel.Type.Footer
+                    )
+                )
+                stressCopingListViewAdapter.submitList(stressCopingListItems)
             }
             showEditDialog.observe(viewLifecycleOwner) { stressCoping ->
                 val dialog = StressCopingEditDialogFragment()
