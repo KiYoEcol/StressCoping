@@ -35,7 +35,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="4dp">
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -58,7 +59,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="4dp">
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp">
 
             <ImageView
                 android:layout_width="24dp"
