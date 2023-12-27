@@ -34,14 +34,14 @@ class StressCopingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonStressCoping.setOnClickListener {
+        binding.btnStressCoping.setOnClickListener {
             if (viewModel.btnStressCoping.value == getString(R.string.btn_start)) {
                 viewModel.clickStart()
             } else {
                 viewModel.clickStop()
             }
         }
-        binding.buttonFirst.setOnClickListener {
+        binding.btnList.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
         viewModel.run {
