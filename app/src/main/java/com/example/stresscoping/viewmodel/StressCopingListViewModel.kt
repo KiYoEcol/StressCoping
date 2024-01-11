@@ -3,10 +3,12 @@ package com.example.stresscoping.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.stresscoping.SingleLiveData
 import com.example.stresscoping.database.getStressCopingDatabase
+import com.example.stresscoping.model.StressCopingListItemModel
 import com.example.stresscoping.model.StressCopingModel
 import com.example.stresscoping.repository.StressCopingRepository
 import com.example.stresscoping.view.StressCopingAddDialogFragment
@@ -19,11 +21,39 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
     StressCopingAddDialogFragment.Listener, StressCopingDeleteDialogFragment.Listener,
     StressCopingEditDialogFragment.Listener {
     private val repository = StressCopingRepository(getStressCopingDatabase(application))
-    val stressCopings: LiveData<List<StressCopingModel>> = repository.allFlow.asLiveData()
+    val stressCopingListItems: LiveData<List<StressCopingListItemModel>> =
+        MediatorLiveData<List<StressCopingListItemModel>>().apply {
+            addSource(repository.allFlow.asLiveData()) { originalList ->
+                val convertedList = originalList.map { stressCoping ->
+                    StressCopingListItemModel(stressCoping, StressCopingListItemModel.Type.Body)
+                }.toMutableList()
+                convertedList.add(
+                    StressCopingListItemModel(
+                        null,
+                        StressCopingListItemModel.Type.Footer
+                    )
+                )
+                value = convertedList
+            }
+        }
     private val _showEditDialog = SingleLiveData<StressCopingModel>()
     val showEditDialog: LiveData<StressCopingModel> = _showEditDialog
     private val _showDeleteDialog = SingleLiveData<StressCopingModel>()
     val showDeleteDialog: LiveData<StressCopingModel> = _showDeleteDialog
+    private val _refreshRecyclerViewAdapter = SingleLiveData<Unit>()
+    val refreshRecyclerViewAdapter: LiveData<Unit> = _refreshRecyclerViewAdapter
+
+    fun onLongClickItem(stressCopingListItemModel: StressCopingListItemModel) {
+        stressCopingListItemModel.isCheck = true
+        stressCopingListItems.value?.forEach { stressCopingListItem ->
+            if (stressCopingListItem.type == StressCopingListItemModel.Type.Body) {
+                stressCopingListItem.isVisibleCheckBox = true
+                stressCopingListItem.isVisibleEdit = false
+                stressCopingListItem.isVisibleDelete = false
+            }
+        }
+        _refreshRecyclerViewAdapter.postValue(Unit)
+    }
 
     fun onClickEditButton(stressCoping: StressCopingModel) {
         _showEditDialog.postValue(stressCoping)

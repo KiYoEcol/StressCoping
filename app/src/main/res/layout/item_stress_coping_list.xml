@@ -6,16 +6,28 @@
     <data>
 
         <variable
-            name="stressCoping"
-            type="com.example.stresscoping.model.StressCopingModel" />
+            name="stressCopingListItem"
+            type="com.example.stresscoping.model.StressCopingListItemModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
+        android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:paddingHorizontal="12dp"
         android:paddingVertical="8dp">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:checked="@={stressCopingListItem.check}"
+            android:visibility="@{stressCopingListItem.visibleCheckBox ? View.VISIBLE : View.GONE}" />
 
         <TextView
             android:id="@+id/textview_stress_coping_item"
@@ -23,9 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="@{stressCoping.title}"
+            android:text="@{stressCopingListItem.stressCoping.title}"
             android:textSize="18sp"
-            tools:text="甘い物" />
+            tools:text="甘い物"
+            android:layout_marginVertical="16dp"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/button_edit"
@@ -36,7 +49,8 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp">
+            android:paddingVertical="8dp"
+            android:visibility="@{stressCopingListItem.visibleEdit ? View.VISIBLE : View.GONE}">
 
             <ImageView
                 android:layout_width="24dp"
@@ -60,7 +74,8 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp">
+            android:paddingVertical="8dp"
+            android:visibility="@{stressCopingListItem.visibleDelete ? View.VISIBLE : View.GONE}">
 
             <ImageView
                 android:layout_width="24dp"

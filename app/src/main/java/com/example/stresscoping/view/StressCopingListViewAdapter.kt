@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stresscoping.databinding.ItemStressCopingListBinding
 import com.example.stresscoping.model.StressCopingListItemModel
-import com.example.stresscoping.model.StressCopingModel
 import com.example.stresscoping.viewmodel.StressCopingListViewModel
 
 private object DiffCallback : DiffUtil.ItemCallback<StressCopingListItemModel>() {
@@ -41,18 +40,22 @@ class StressCopingListViewAdapter(
     class StressCopingListViewHolder(private val binding: ItemStressCopingListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            model: StressCopingModel,
+            stressCopingListItemModel: StressCopingListItemModel,
             lifecycleOwner: LifecycleOwner,
             viewModel: StressCopingListViewModel
         ) {
             binding.run {
                 this.lifecycleOwner = lifecycleOwner
-                this.stressCoping = model
+                this.stressCopingListItem = stressCopingListItemModel
+                this.layoutTop.setOnLongClickListener {
+                    viewModel.onLongClickItem(stressCopingListItemModel)
+                    true
+                }
                 this.buttonEdit.setOnClickListener {
-                    viewModel.onClickEditButton(model)
+                    stressCopingListItemModel.stressCoping?.let { viewModel.onClickEditButton(it) }
                 }
                 this.buttonDelete.setOnClickListener {
-                    viewModel.onClickDeleteButton(model)
+                    stressCopingListItemModel.stressCoping?.let { viewModel.onClickDeleteButton(it) }
                 }
 
                 executePendingBindings()
@@ -92,9 +95,10 @@ class StressCopingListViewAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is StressCopingListViewHolder) {
             val stressCopingListItemModel = getItem(position)
-            val stressCoping = stressCopingListItemModel.stressCoping
-                ?: throw IllegalStateException("StressCopingModel cannot be null when holder is StressCopingListViewHolder")
-            holder.bind(stressCoping, lifecycleOwner, viewModel)
+            if (stressCopingListItemModel.stressCoping == null) {
+                throw IllegalStateException("StressCopingModel cannot be null when holder is StressCopingListViewHolder")
+            }
+            holder.bind(stressCopingListItemModel, lifecycleOwner, viewModel)
         }
     }
 }

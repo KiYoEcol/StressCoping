@@ -1,5 +1,6 @@
 package com.example.stresscoping.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stresscoping.StressCopingListViewAdapter
 import com.example.stresscoping.viewmodel.StressCopingListViewModel
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
-import com.example.stresscoping.model.StressCopingListItemModel
 import com.example.stresscoping.model.StressCopingModel
 
 /**
@@ -46,19 +46,11 @@ class StressCopingListFragment : Fragment() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.run {
-            stressCopings.observe(viewLifecycleOwner) { stressCopings ->
-                val stressCopingListItems = stressCopings.map {
-                    StressCopingListItemModel(it, StressCopingListItemModel.Type.Body)
-                }.toMutableList()
-                stressCopingListItems.add(
-                    StressCopingListItemModel(
-                        null,
-                        StressCopingListItemModel.Type.Footer
-                    )
-                )
+            stressCopingListItems.observe(viewLifecycleOwner) { stressCopingListItems ->
                 stressCopingListViewAdapter.submitList(stressCopingListItems)
             }
             showEditDialog.observe(viewLifecycleOwner) { stressCoping ->
@@ -77,7 +69,9 @@ class StressCopingListFragment : Fragment() {
                 }
                 dialog.show(childFragmentManager, "stress_coping_delete_dialog")
             }
-
+            refreshRecyclerViewAdapter.observe(viewLifecycleOwner){
+                stressCopingListViewAdapter.notifyDataSetChanged()
+            }
         }
     }
 }
