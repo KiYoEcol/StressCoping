@@ -69,8 +69,11 @@ class StressCopingListFragment : Fragment() {
                 }
                 dialog.show(childFragmentManager, "stress_coping_delete_dialog")
             }
-            refreshRecyclerViewAdapter.observe(viewLifecycleOwner){
+            refreshRecyclerViewAdapter.observe(viewLifecycleOwner) {
                 stressCopingListViewAdapter.notifyDataSetChanged()
+            }
+            refreshRecyclerViewAdapterByPosition.observe(viewLifecycleOwner) { position ->
+                stressCopingListViewAdapter.notifyItemChanged(position)
             }
         }
     }

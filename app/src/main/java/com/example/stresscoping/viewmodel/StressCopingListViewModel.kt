@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.stresscoping.SingleLiveData
@@ -42,6 +43,18 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
     val showDeleteDialog: LiveData<StressCopingModel> = _showDeleteDialog
     private val _refreshRecyclerViewAdapter = SingleLiveData<Unit>()
     val refreshRecyclerViewAdapter: LiveData<Unit> = _refreshRecyclerViewAdapter
+    private val _stressCopingListState =
+        MutableLiveData<StressCopingListState>(StressCopingListState.Column)
+    val stressCopingListState: LiveData<StressCopingListState> = _stressCopingListState
+    private val _refreshRecyclerViewAdapterByPosition = SingleLiveData<Int>()
+    val refreshRecyclerViewAdapterByPosition: LiveData<Int> = _refreshRecyclerViewAdapterByPosition
+
+    fun onClickItem(position: Int, stressCopingListItem: StressCopingListItemModel) {
+        if (stressCopingListState.value == StressCopingListState.Delete) {
+            stressCopingListItem.isCheck = true
+            _refreshRecyclerViewAdapterByPosition.postValue(position)
+        }
+    }
 
     fun onLongClickItem(stressCopingListItemModel: StressCopingListItemModel) {
         stressCopingListItemModel.isCheck = true
@@ -52,6 +65,7 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
                 stressCopingListItem.isVisibleDelete = false
             }
         }
+        _stressCopingListState.postValue(StressCopingListState.Delete)
         _refreshRecyclerViewAdapter.postValue(Unit)
     }
 

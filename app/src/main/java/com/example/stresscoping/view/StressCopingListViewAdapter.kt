@@ -40,6 +40,7 @@ class StressCopingListViewAdapter(
     class StressCopingListViewHolder(private val binding: ItemStressCopingListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
+            position: Int,
             stressCopingListItemModel: StressCopingListItemModel,
             lifecycleOwner: LifecycleOwner,
             viewModel: StressCopingListViewModel
@@ -47,6 +48,9 @@ class StressCopingListViewAdapter(
             binding.run {
                 this.lifecycleOwner = lifecycleOwner
                 this.stressCopingListItem = stressCopingListItemModel
+                this.layoutTop.setOnClickListener {
+                    viewModel.onClickItem(position, stressCopingListItemModel)
+                }
                 this.layoutTop.setOnLongClickListener {
                     viewModel.onLongClickItem(stressCopingListItemModel)
                     true
@@ -98,7 +102,7 @@ class StressCopingListViewAdapter(
             if (stressCopingListItemModel.stressCoping == null) {
                 throw IllegalStateException("StressCopingModel cannot be null when holder is StressCopingListViewHolder")
             }
-            holder.bind(stressCopingListItemModel, lifecycleOwner, viewModel)
+            holder.bind(position, stressCopingListItemModel, lifecycleOwner, viewModel)
         }
     }
 }
