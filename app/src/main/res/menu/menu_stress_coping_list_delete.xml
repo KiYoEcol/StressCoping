@@ -7,13 +7,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_delete_24"
-        android:title="Item"
-        app:showAsAction="always" />
+        android:title="@string/btn_delete"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_item_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_clear_24"
-        android:title="Item"
+        android:title="@string/btn_cancel"
         app:showAsAction="always" />
 </menu>
