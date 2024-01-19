@@ -130,4 +130,15 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
                 repository.update(stressCoping)
             }
     }
+
+    fun deleteStressCopings() {
+        val deletedItems = stressCopingListItems.value?.filter { it.isCheck }
+        if (deletedItems != null) {
+            val stressCopings = deletedItems.map { it.stressCoping }.filterNotNull().toTypedArray()
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.deletes(*stressCopings)
+                changeListStateColumn()
+            }
+        }
+    }
 }

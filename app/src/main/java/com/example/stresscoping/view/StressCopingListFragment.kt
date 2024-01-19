@@ -84,7 +84,21 @@ class StressCopingListFragment : Fragment() {
                 val currentActivity = activity as? MainActivity
                 if (currentActivity is MainActivity) {
                     when (state) {
-                        StressCopingListState.Column -> currentActivity.clearMenu()
+                        StressCopingListState.Column -> {
+                            context?.let {
+                                binding.fabAddStressCoping.visibility = View.VISIBLE
+                                ObjectAnimator.ofFloat(
+                                    binding.fabAddStressCoping,
+                                    "translationY",
+                                    100.dpToPx(it).toFloat(),
+                                    0f
+                                ).apply {
+                                    duration = 500
+                                    start()
+                                }
+                            }
+                            currentActivity.clearMenu()
+                        }
                         else -> {
                             context?.let {
                                 ObjectAnimator.ofFloat(
@@ -111,19 +125,11 @@ class StressCopingListFragment : Fragment() {
         }
     }
 
+    fun deleteStressCopings(){
+        viewModel.deleteStressCopings()
+    }
+
     fun changeListStateToColumn() {
-        context?.let {
-            binding.fabAddStressCoping.visibility = View.VISIBLE
-            ObjectAnimator.ofFloat(
-                binding.fabAddStressCoping,
-                "translationY",
-                100.dpToPx(it).toFloat(),
-                0f
-            ).apply {
-                duration = 500
-                start()
-            }
-        }
         viewModel.changeListStateColumn()
     }
 }

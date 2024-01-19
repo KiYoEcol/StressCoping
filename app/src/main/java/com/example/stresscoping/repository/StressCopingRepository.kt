@@ -36,4 +36,11 @@ class StressCopingRepository(private val database: StressCopingDatabase) {
             database.stressCopingDao().delete(entity)
         }
     }
+
+    suspend fun deletes(vararg stressCopings: StressCopingModel) {
+        withContext(Dispatchers.IO) {
+            val entities = stressCopings.map { StressCopingEntity(it.id, it.title) }.toTypedArray()
+            database.stressCopingDao().deletes(*entities)
+        }
+    }
 }

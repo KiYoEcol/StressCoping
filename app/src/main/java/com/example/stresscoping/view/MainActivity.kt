@@ -68,15 +68,15 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         val currentFragment =
             navHostFragment.childFragmentManager.primaryNavigationFragment as? StressCopingListFragment
+        if (currentFragment !is StressCopingListFragment) return super.onOptionsItemSelected(item)
         return when (item.itemId) {
             R.id.menu_item_delete -> {
+                currentFragment.deleteStressCopings()
                 true
             }
 
             R.id.menu_item_cancel -> {
-                if (currentFragment is StressCopingListFragment) {
-                    currentFragment.changeListStateToColumn()
-                }
+                currentFragment.changeListStateToColumn()
                 true
             }
 

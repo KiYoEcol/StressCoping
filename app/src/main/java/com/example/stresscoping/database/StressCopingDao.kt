@@ -21,4 +21,7 @@ interface StressCopingDao {
 
     @Delete
     fun delete(stressCoping: StressCopingEntity)
+
+    @Delete
+    fun deletes(vararg stressCoping: StressCopingEntity)
 }
