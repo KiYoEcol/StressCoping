@@ -1,5 +1,8 @@
 package com.example.stresscoping.view
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stresscoping.StressCopingListViewAdapter
 import com.example.stresscoping.viewmodel.StressCopingListViewModel
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
+import com.example.stresscoping.dpToPx
 import com.example.stresscoping.model.StressCopingModel
 import com.example.stresscoping.viewmodel.StressCopingListState
 
@@ -81,14 +85,45 @@ class StressCopingListFragment : Fragment() {
                 if (currentActivity is MainActivity) {
                     when (state) {
                         StressCopingListState.Column -> currentActivity.clearMenu()
-                        else -> currentActivity.invalidateStressCopingListDeleteMenu()
+                        else -> {
+                            context?.let {
+                                ObjectAnimator.ofFloat(
+                                    binding.fabAddStressCoping,
+                                    "translationY",
+                                    0f,
+                                    100.dpToPx(it).toFloat()
+                                ).apply {
+                                    duration = 500
+                                    addListener(object : AnimatorListenerAdapter() {
+                                        override fun onAnimationEnd(animation: Animator) {
+                                            super.onAnimationEnd(animation)
+                                            binding.fabAddStressCoping.visibility = View.GONE
+                                        }
+                                    })
+                                    start()
+                                }
+                            }
+                            currentActivity.invalidateStressCopingListDeleteMenu()
+                        }
                     }
                 }
             }
         }
     }
 
-    fun changeListStateToColumn(){
+    fun changeListStateToColumn() {
+        context?.let {
+            binding.fabAddStressCoping.visibility = View.VISIBLE
+            ObjectAnimator.ofFloat(
+                binding.fabAddStressCoping,
+                "translationY",
+                100.dpToPx(it).toFloat(),
+                0f
+            ).apply {
+                duration = 500
+                start()
+            }
+        }
         viewModel.changeListStateColumn()
     }
 }
