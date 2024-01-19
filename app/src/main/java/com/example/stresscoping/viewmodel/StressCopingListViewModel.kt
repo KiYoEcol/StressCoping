@@ -48,6 +48,12 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
     val stressCopingListState: LiveData<StressCopingListState> = _stressCopingListState
     private val _refreshRecyclerViewAdapterByPosition = SingleLiveData<Int>()
     val refreshRecyclerViewAdapterByPosition: LiveData<Int> = _refreshRecyclerViewAdapterByPosition
+    private val _listState = SingleLiveData<StressCopingListState>()
+    val listState: LiveData<StressCopingListState> = _listState
+
+    init {
+        _listState.value = StressCopingListState.Column
+    }
 
     fun onClickItem(position: Int, stressCopingListItem: StressCopingListItemModel) {
         if (stressCopingListState.value == StressCopingListState.Delete) {
@@ -56,8 +62,21 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
         }
     }
 
-    fun onLongClickItem(stressCopingListItemModel: StressCopingListItemModel) {
-        stressCopingListItemModel.isCheck = true
+    fun changeListStateColumn() {
+        stressCopingListItems.value?.forEach { stressCopingListItem ->
+            if (stressCopingListItem.type == StressCopingListItemModel.Type.Body) {
+                stressCopingListItem.isCheck = false
+                stressCopingListItem.isVisibleCheckBox = false
+                stressCopingListItem.isVisibleEdit = true
+                stressCopingListItem.isVisibleDelete = true
+            }
+        }
+        _stressCopingListState.postValue(StressCopingListState.Column)
+        _refreshRecyclerViewAdapter.postValue(Unit)
+        _listState.postValue(StressCopingListState.Column)
+    }
+
+    fun changeListStateToDelete() {
         stressCopingListItems.value?.forEach { stressCopingListItem ->
             if (stressCopingListItem.type == StressCopingListItemModel.Type.Body) {
                 stressCopingListItem.isVisibleCheckBox = true
@@ -67,6 +86,12 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
         }
         _stressCopingListState.postValue(StressCopingListState.Delete)
         _refreshRecyclerViewAdapter.postValue(Unit)
+        _listState.postValue(StressCopingListState.Delete)
+    }
+
+    fun onLongClickItem(stressCopingListItemModel: StressCopingListItemModel) {
+        stressCopingListItemModel.isCheck = true
+        changeListStateToDelete()
     }
 
     fun onClickEditButton(stressCoping: StressCopingModel) {

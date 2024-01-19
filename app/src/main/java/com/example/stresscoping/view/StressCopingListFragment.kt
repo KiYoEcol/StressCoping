@@ -14,6 +14,7 @@ import com.example.stresscoping.StressCopingListViewAdapter
 import com.example.stresscoping.viewmodel.StressCopingListViewModel
 import com.example.stresscoping.databinding.FragmentStressCopingListBinding
 import com.example.stresscoping.model.StressCopingModel
+import com.example.stresscoping.viewmodel.StressCopingListState
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -75,6 +76,19 @@ class StressCopingListFragment : Fragment() {
             refreshRecyclerViewAdapterByPosition.observe(viewLifecycleOwner) { position ->
                 stressCopingListViewAdapter.notifyItemChanged(position)
             }
+            listState.observe(viewLifecycleOwner) { state ->
+                val currentActivity = activity as? MainActivity
+                if (currentActivity is MainActivity) {
+                    when (state) {
+                        StressCopingListState.Column -> currentActivity.clearMenu()
+                        else -> currentActivity.invalidateStressCopingListDeleteMenu()
+                    }
+                }
+            }
         }
+    }
+
+    fun changeListStateToColumn(){
+        viewModel.changeListStateColumn()
     }
 }
