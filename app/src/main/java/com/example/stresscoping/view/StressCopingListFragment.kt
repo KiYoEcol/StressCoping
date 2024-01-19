@@ -99,6 +99,7 @@ class StressCopingListFragment : Fragment() {
                             }
                             currentActivity.clearMenu()
                         }
+
                         else -> {
                             context?.let {
                                 ObjectAnimator.ofFloat(
@@ -125,8 +126,16 @@ class StressCopingListFragment : Fragment() {
         }
     }
 
-    fun deleteStressCopings(){
-        viewModel.deleteStressCopings()
+    fun deleteStressCopings() {
+        val dialog = StressCopingsDeleteDialogFragment()
+        dialog.listener = viewModel
+        dialog.arguments = Bundle().apply {
+            putInt(
+                StressCopingsDeleteDialogFragment.NUMBER_OF_DELETED_STRESS_COPINGS,
+                viewModel.stressCopingListItems.value?.count { it.isCheck } ?: 0
+            )
+        }
+        dialog.show(childFragmentManager, "StressCopingsDeleteDialogFragment")
     }
 
     fun changeListStateToColumn() {

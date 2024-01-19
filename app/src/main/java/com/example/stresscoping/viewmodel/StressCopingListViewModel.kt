@@ -15,12 +15,13 @@ import com.example.stresscoping.repository.StressCopingRepository
 import com.example.stresscoping.view.StressCopingAddDialogFragment
 import com.example.stresscoping.view.StressCopingDeleteDialogFragment
 import com.example.stresscoping.view.StressCopingEditDialogFragment
+import com.example.stresscoping.view.StressCopingsDeleteDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class StressCopingListViewModel(application: Application) : AndroidViewModel(application),
     StressCopingAddDialogFragment.Listener, StressCopingDeleteDialogFragment.Listener,
-    StressCopingEditDialogFragment.Listener {
+    StressCopingEditDialogFragment.Listener, StressCopingsDeleteDialogFragment.Listener {
     private val repository = StressCopingRepository(getStressCopingDatabase(application))
     val stressCopingListItems: LiveData<List<StressCopingListItemModel>> =
         MediatorLiveData<List<StressCopingListItemModel>>().apply {
@@ -131,7 +132,7 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
             }
     }
 
-    fun deleteStressCopings() {
+    override fun deleteStressCopings() {
         val deletedItems = stressCopingListItems.value?.filter { it.isCheck }
         if (deletedItems != null) {
             val stressCopings = deletedItems.map { it.stressCoping }.filterNotNull().toTypedArray()
