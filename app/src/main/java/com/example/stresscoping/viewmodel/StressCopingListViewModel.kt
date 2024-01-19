@@ -51,7 +51,7 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
 
     fun onClickItem(position: Int, stressCopingListItem: StressCopingListItemModel) {
         if (stressCopingListState.value == StressCopingListState.Delete) {
-            stressCopingListItem.isCheck = true
+            stressCopingListItem.isCheck = !stressCopingListItem.isCheck
             _refreshRecyclerViewAdapterByPosition.postValue(position)
         }
     }
