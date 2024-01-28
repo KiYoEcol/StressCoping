@@ -27,7 +27,14 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
         MediatorLiveData<List<StressCopingListItemModel>>().apply {
             addSource(repository.allFlow.asLiveData()) { originalList ->
                 val convertedList = originalList.map { stressCoping ->
-                    StressCopingListItemModel(stressCoping, StressCopingListItemModel.Type.Body)
+                    StressCopingListItemModel(
+                        stressCoping = stressCoping,
+                        type = StressCopingListItemModel.Type.Body,
+                        isVisibleCheckBox = listState.value == StressCopingListState.Delete,
+                        isCheck = false,
+                        isVisibleEdit = listState.value != StressCopingListState.Delete,
+                        isVisibleDelete = listState.value != StressCopingListState.Delete
+                    )
                 }.toMutableList()
                 convertedList.add(
                     StressCopingListItemModel(
@@ -49,7 +56,7 @@ class StressCopingListViewModel(application: Application) : AndroidViewModel(app
     val stressCopingListState: LiveData<StressCopingListState> = _stressCopingListState
     private val _refreshRecyclerViewAdapterByPosition = SingleLiveData<Int>()
     val refreshRecyclerViewAdapterByPosition: LiveData<Int> = _refreshRecyclerViewAdapterByPosition
-    private val _listState = SingleLiveData<StressCopingListState>()
+    private val _listState = MutableLiveData<StressCopingListState>()
     val listState: LiveData<StressCopingListState> = _listState
 
     init {
