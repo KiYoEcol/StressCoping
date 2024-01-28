@@ -3,6 +3,7 @@
     <style name="Base.Theme.StressCoping" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="iconTint">@color/black</item>
     </style>
 
     <style name="Theme.StressCoping" parent="Base.Theme.StressCoping" />
